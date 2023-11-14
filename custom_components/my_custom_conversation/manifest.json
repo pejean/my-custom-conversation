@@ -1,12 +1,12 @@
 {
-  "domain": "custom_openai_conversation",
+  "domain": "my_custom_conversation",
   "documentation": "https://github.com/pejean/my-custom-conversation",
   "issue_tracker": "https://github.com/pejean/my-custom-conversation/issues",
   "codeowners": [
     "@pejean"
   ],
   "name": "My Custom Conversation",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": [
     "conversation"
   ],
