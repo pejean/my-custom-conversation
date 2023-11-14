@@ -11,10 +11,11 @@ from homeassistant.helpers import config_validation as cv
 CONFIG_SCHEMA = cv.config_entry_only_config_schema("my_custom_conversation")
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Initialize your integration."""
     agent = MyCustomConversationAgent(hass, entry)
     conversation.async_set_agent(hass, entry, agent)
+    return True
 
 
 class MyCustomConversationAgent(conversation.AbstractConversationAgent):
