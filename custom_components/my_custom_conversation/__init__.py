@@ -8,8 +8,16 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers import intent
 from homeassistant.helpers import config_validation as cv
 
-CONFIG_SCHEMA = cv.config_entry_only_config_schema("my_custom_conversation")
+import voluptuous as vol
 
+CONFIG_SCHEMA = vol.Schema(
+    {
+        "my_custom_conversation": vol.Schema({
+            vol.Optional("name", default="my_custom_conversation_agent"): cv.string
+        })
+    },
+    extra=vol.ALLOW_EXTRA
+)
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Initialize your integration."""
