@@ -6,6 +6,9 @@ from homeassistant.const import MATCH_ALL
 from homeassistant.components import conversation
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import intent
+from homeassistant.helpers import config_validation as cv
+
+CONFIG_SCHEMA = cv.config_entry_only_config_schema("my_custom_conversation")
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
