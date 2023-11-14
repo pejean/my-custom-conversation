@@ -7,7 +7,7 @@ from homeassistant.const import MATCH_ALL
 from homeassistant.helpers import intent
 
 
-async def async_setup(hass, config):
+async def async_setup_entry(hass, config):
     """Initialize your integration."""
     conversation.async_set_agent(hass, MyCustomConversationAgent())
 
