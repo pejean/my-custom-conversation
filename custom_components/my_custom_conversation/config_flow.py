@@ -30,7 +30,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain='my_custom_conversation'):
                 step_id="user", data_schema=STEP_USER_DATA_SCHEMA
             )
 
-        return self.async_create_entry("My Custom Conversation", data=user_input)
+        return self.async_create_entry(title="My Custom Conversation", data=user_input)
 
 
     @staticmethod
