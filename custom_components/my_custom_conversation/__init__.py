@@ -1,12 +1,14 @@
 """The My Custom Conversation integration."""
+from __future__ import annotations
+
 from typing import Literal
 
+from homeassistant.components import conversation
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import MATCH_ALL
-from homeassistant.components import conversation
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import intent
 from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers import intent
 
 import voluptuous as vol
 
@@ -19,6 +21,7 @@ CONFIG_SCHEMA = vol.Schema(
     extra=vol.ALLOW_EXTRA
 )
 
+
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Initialize your integration."""
     agent = MyCustomConversationAgent(hass, entry)
@@ -26,13 +29,22 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     return True
 
 
+async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Unload OpenAI."""
+    conversation.async_unset_agent(hass, entry)
+    return True
+
+
 class MyCustomConversationAgent(conversation.AbstractConversationAgent):
+    """My Custom Conversation Agent"""
 
     def __init__(self, hass: HomeAssistant, entry: ConfigEntry) -> None:
         """Initialize the agent."""
         self.hass = hass
         self.entry = entry
+        self.history: dict[str, list[dict]] = {}
 
+    @property
     def supported_languages(self) -> list[str] | Literal["*"]:
         """Return a list of supported languages."""
         return MATCH_ALL
