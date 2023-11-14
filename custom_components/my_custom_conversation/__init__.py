@@ -12,15 +12,6 @@ from homeassistant.helpers import intent
 
 import voluptuous as vol
 
-CONFIG_SCHEMA = vol.Schema(
-    {
-        "my_custom_conversation": vol.Schema({
-            vol.Optional("name", default="my_custom_conversation_agent"): cv.string
-        })
-    },
-    extra=vol.ALLOW_EXTRA
-)
-
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Initialize your integration."""
