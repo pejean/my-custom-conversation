@@ -5,6 +5,7 @@
   "codeowners": [
     "@pejean"
   ],
+  "config_flow": true,
   "name": "My Custom Conversation",
   "version": "0.0.1",
   "dependencies": [
