@@ -8,6 +8,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import MATCH_ALL
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import intent
+from homeassistant.util import ulid
 
 import aiohttp
 import asyncio
@@ -65,11 +66,14 @@ class MyCustomConversationAgent(conversation.AbstractConversationAgent):
     async def async_process(self, user_input: conversation.ConversationInput) -> conversation.ConversationResult:
         """Process a sentence."""
 
-        api_response = await send_message_to_api_async(user_input.conversation_id, user_input.text)
+        conversation_id = user_input.conversation_id
+        if conversation_id is None:
+            conversation_id = ulid.ulid()
 
-        response = intent.IntentResponse(language=user_input.language)
-        response.async_set_speech(api_response)
-        return conversation.ConversationResult(
-            conversation_id=None,
-            response=response
-        )
+        user_message = user_input.text
+
+        api_response = await send_message_to_api_async(conversation_id, user_message)
+
+        input_response = intent.IntentResponse(language=user_input.language)
+        input_response.async_set_speech(api_response)
+        return conversation.ConversationResult(response=input_response, conversation_id=conversation_id)
