@@ -26,9 +26,9 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     return True
 
 
-async def send_message_to_api_async(message):
+async def send_message_to_api_async(conversation_id, message):
     url = 'http://192.168.1.100:8555'
-    payload = {'message': message}
+    payload = {'conversation_id': conversation_id, 'message': message}
 
     try:
         async with aiohttp.ClientSession() as session:
@@ -65,7 +65,7 @@ class MyCustomConversationAgent(conversation.AbstractConversationAgent):
     async def async_process(self, user_input: conversation.ConversationInput) -> conversation.ConversationResult:
         """Process a sentence."""
 
-        api_response = await send_message_to_api_async(user_input.text)
+        api_response = await send_message_to_api_async(user_input.conversation_id, user_input.text)
 
         response = intent.IntentResponse(language=user_input.language)
         response.async_set_speech(api_response)
