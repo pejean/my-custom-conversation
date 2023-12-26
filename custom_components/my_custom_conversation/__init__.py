@@ -28,7 +28,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 
 async def send_message_to_api_async(conversation_id, message):
-    url = 'http://192.168.1.100:8555'
+    url = 'http://super:8555'
     payload = {'conversation_id': conversation_id, 'message': message}
 
     try:
